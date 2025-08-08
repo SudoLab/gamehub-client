@@ -115,11 +115,12 @@ func (c *Client) AddCoins(ctx context.Context, userID int64, amount int, reason,
 // Games methods
 
 // ReportScore reports a game score (internal API)
-func (c *Client) ReportScore(ctx context.Context, userID int64, score int64) error {
-	payload := map[string]interface{}{
+func (c *Client) ReportScore(ctx context.Context, userID int64, score int64, level int) error {
+	payload := map[string]any{
 		"user_id": userID,
 		"game_id": c.config.GameID,
 		"score":   score,
+		"level":   level,
 	}
 
 	req, err := c.newInternalRequest(ctx, "POST", "/api/v1/internal/games/report-score", payload)
